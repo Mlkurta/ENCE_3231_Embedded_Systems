@@ -45,3 +45,18 @@ Pin Planning:
 One error I made is I did not use a separate name for the 5V voltage regulator; I used the same LDR for 3.3V and 5V. Fortunately the footprins are the same, and the correct parts were available when soldering.
 
 
+## Encoder Problems
+
+<img width="590" height="1278" alt="IMG_8338" src="https://github.com/user-attachments/assets/4e348e50-2e90-4213-b8ac-f64708f39fdc" />
+
+
+Device ID
+
+<img width="590" height="1278" alt="IMG_8339" src="https://github.com/user-attachments/assets/c4efb273-a7b9-4eac-8fbb-25913529fc98" />
+
+This showed a device ID (decimal = 54, which is Hex 0x36)
+
+HAL == OK
+
+<img width="590" height="1278" alt="IMG_8340" src="https://github.com/user-attachments/assets/3e776125-f507-4518-93e8-705dff1c63ef" />
+
