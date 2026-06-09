@@ -97,6 +97,8 @@ Because I did not separately distinguish between my two LDOs, I ended up solderi
 
 Additionally, I bridged some pins on the MCU, though I got rid of them. Or so I thought. 
 
+## 3.3V Rail short to GND
+
 Once all of the components were soldered to the PCB, I found out I hard a short between 3.3V and GND. After probing around, applying small currents and looking through an infrared camera, and resoldering suspect areas, I still could not find the short.
 
 I found an online technique for locating shorts on a PCB by injecting a constant current into the affected power rail (3.3 V and GND in this case). Using a bench multimeter capable of measuring very small voltage differences, the millivolt drop between the 3.3 V rail and ground was measured at various locations across the board. A handheld multimeter would likely not provide sufficient resolution for this method. The principle is that locations electrically closer to the short will exhibit a lower voltage drop.
@@ -118,6 +120,28 @@ This meant that the A01 output of the TB6612 was not ouputting a PWM signal. Usi
 The PWM and AIN1 were all what they should be: PWM doing PWM, and AIN1 was at 0V.  From this, I began to think the connection between the STM32 and motor controller was bad, so I checked and there was good continuity between the two pins. I probed with the scope again and now I saw 3.3V. I thought for sure the motor controller was faulty or burnt out somehow with the information. I probed again and now noticed the A01 show PWM for a split second. 
 
 Then it dawned on me. If the pin (AIN1) was not a perfect solder, all of this could be explainable. Sometimes showing 3.3V when it should, sometimes not. Even when it was 3.3V, A01 was still flat. When pressing again (occasionally), A01 output PWM like it should.  I reflowed the AIN1 pin, and immediately the motor problem was fixed.
+
+## 3 Wheel Robot
+
+It was now time to test the robot. With all of the motors tested, an acrylic platform was drafted and made with a laser cutter.
+
+<img width="610" height="337" alt="image" src="https://github.com/user-attachments/assets/28b9ac25-c310-44aa-ac3f-2195afa4e953" />
+
+Then the body was assembled with everything connected, except the hall effect wheel encoder. 
+
+Connecting to the websocket, I could now view the telemetry. All but the speed, anyways as the encoder wasn't installed/configured.
+
+<img width="295" height="639" alt="IMG_8338" src="https://github.com/user-attachments/assets/5a684fe6-3117-4e8a-a8de-2fed57b2c9a5" />
+
+The robot could now be controlled with commands from my phone. I should note tha originally, the telemetry data and commands did not work. The ESP8266 would blink when commands were sent, but nothing would register. This is where the RGB LED was helpful.
+
+Scouring through the code, the timer 3 interrupt was performing a TimerCompleteCallback() function, where the encoder read was triggered. The encoder read contains an I2C_MemRead() function, which has a timeout of 100ms.  This interrupt interval was also 100ms.  The UART is triggered through polling in the main while(1) loop.  So the UART read and writes never executed because every 1/10th of a second, an interrupt triggered, spending 1/10th of a second looking for an I2C device which wasn't there. The fix was either disabling or commenting out Timer 3.
+
+Baby steps.
+
+<img width="421" height="750" alt="3Wheel" src="https://github.com/user-attachments/assets/575b9c0e-88a8-4ebb-b091-b9bb3c427400" />
+
+Clearly there was a difference in motor speed, but otherwise we were about ready to start programming and take off the training wheel(s).
 
 ## Encoder Problems
 
@@ -147,7 +171,7 @@ It didnt. I ended up looking at the IC on the board and there was an interesting
 <img width="845" height="638" alt="IMG_8341" src="https://github.com/user-attachments/assets/4d985973-521e-4568-90d0-05c8bc0002c7" />
 
 
-This was an AS5600. Upon looking at the datasheet, 0x32 is exactly the device address, but the read registers were different. In order to get raw angle, you must read 2 bytes beginning at 0x0C for angle. Then the degree conversion was different. Once that was determined, I had a means to measure angle and speed.
+This was an AS5600. Upon looking at the datasheet, 0x32 is exactly the device address, but the read registers were different. In order to get raw angle, you must read 2 bytes beginning at 0x0C for angle. Then the degree conversion was different. Once that was determined, I had a means to measure angle and speed. I thought this was a good learning experience, as occasionally a part will be substituted with an equivalent (in a company, or group project).  Knowing to use a I2C scanning function can be helpful in going back to square one. Or, if in doubt, look at the IC markings.
 
 
 Balancing the Wheel velocities.
