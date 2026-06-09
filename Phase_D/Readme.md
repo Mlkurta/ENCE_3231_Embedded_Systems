@@ -128,3 +128,16 @@ To characterize the drive motors and improve speed matching between the left and
 
 The measured rotation times were converted into wheel speed data and used to generate a relationship between PWM command and rotational speed. This calibration revealed variations in motor performance across the operating range and provided a basis for compensating differences between the two drive motors. By using the experimentally measured speed data, more consistent wheel velocities could be achieved, improving straight-line tracking and overall balancing performance of the robot.
 
+## Control Tuning
+
+
+The robot uses a PD balancing controller based on fused accelerometer and gyroscope measurements. Wheel velocity feedback is incorporated to improve translational control and reduce steady-state drift, allowing the robot to maintain balance while tracking commanded forward and reverse speeds.
+
+$u(t) = K_p(\theta_{target} - \theta) - K_d\dot{\theta} + K_v(v_{target} - v)$
+
+A complementary filter was used to estimate robot pitch by combining gyroscope and accelerometer measurements. The gyroscope provides accurate short-term angular rate information but is susceptible to drift when integrated over time. The accelerometer provides an absolute estimate of tilt relative to gravity but is sensitive to vibration and noise. The complementary filter blends these measurements, using a weighting factor α to combine the short-term stability of the gyroscope with the long-term stability of the accelerometer.
+
+$\theta_k = \alpha \left(\theta_{k-1} + \omega_k \Delta t\right) + (1-\alpha)\theta_{acc,k}$
+
+An α value of 0.995 was selected, resulting in approximately 98% reliance on the integrated gyroscope measurement and 2% reliance on the accelerometer measurement during each update cycle.
+
