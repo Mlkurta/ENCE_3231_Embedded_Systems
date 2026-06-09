@@ -166,7 +166,7 @@ HAL == OK
 
 I still wondered why I couldnt get any speed values from this device. The register addresses were correct. Then I tried connecting it to a Teensy and using Arduino and ChatGPT to detemine if that worked. 
 
-It didnt. I ended up looking at the IC on the board and there was an interesting observation:
+All I was able tto determine was that the device was acknowledging the correct device address, but nothing after attempts to read the registers. I ended up looking at the IC on the board and there was an interesting observation:
 
 <img width="845" height="638" alt="IMG_8341" src="https://github.com/user-attachments/assets/4d985973-521e-4568-90d0-05c8bc0002c7" />
 
