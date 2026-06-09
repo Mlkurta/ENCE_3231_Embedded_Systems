@@ -143,6 +143,9 @@ Baby steps.
 
 Clearly there was a difference in motor speed, but otherwise we were about ready to start programming and take off the training wheel(s).
 
+<img width="1008" height="756" alt="IMG_8368" src="https://github.com/user-attachments/assets/6632e704-cd1b-464f-bc94-cb89a57477ce" />
+
+
 ## Encoder Problems
 
 The encoder originally seemed like it was reading values, but after lots of printing different values to the "Speed" variable in the websocket, I found out that this originated from a raw value of 128. 
@@ -202,4 +205,22 @@ A complementary filter was used to estimate robot pitch by combining gyroscope a
 $\theta_k = \alpha \left(\theta_{k-1} + \omega_k \Delta t\right) + (1-\alpha)\theta_{acc,k}$
 
 An α value of 0.995 was selected, resulting in approximately 99.5% reliance on the integrated gyroscope measurement and .5% reliance on the accelerometer measurement during each update cycle.
+
+<img width="1008" height="756" alt="IMG_8367" src="https://github.com/user-attachments/assets/75586e93-eb37-4c64-a76e-3d44b9df3f90" />
+
+
+## 2 Wheel Balancing
+
+After many different attempts at adjusting the Kp, and Kd variables,, the target pitch was changed. Changing the target pitch was great, but a little too sudden. So I implemented a change which gradually changes the target pitch until the final pitch is reached. Without the encoder though, the vehicle would drift.
+ and modifying the state control, I was able to get a somewhat working robot that responds to commands. Initially, before the encoder was working, my strategy was to make the vehicle balance based on a target pitch angle. Then when forward or backward was pressed
+Now my new strategy with a working encoder was to keep generally the target pitch, but adjust target velocity. Then for turning, add a differential value which gets added to one wheel's PWM value and subtracted from the other's, depending on he direction. I also had to add in the last kv term. 
+
+<img width="421" height="750" alt="2Wheel" src="https://github.com/user-attachments/assets/a73ecafd-7f09-4285-b1bb-498187730288" />
+
+
+<img width="756" height="1008" alt="IMG_8371" src="https://github.com/user-attachments/assets/132e5604-46c3-4149-9eb3-c2868305c8b0" />
+
+
+<img width="1008" height="756" alt="IMG_8370" src="https://github.com/user-attachments/assets/8152ced0-bfe4-4298-a1ec-a2ec64efd53f" />
+
 
