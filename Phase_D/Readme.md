@@ -180,6 +180,8 @@ Because the wheel speeds were notably different and required different PWM speed
 
 <img width="421" height="750" alt="Speed" src="https://github.com/user-attachments/assets/278da8dc-5f0d-471f-9d92-4cb8a1b05d49" />
 
+This above gif is aliasing, the motor is actually spinning clockwise; but I digress.....
+
 
 <img width="381" height="286" alt="image" src="https://github.com/user-attachments/assets/3240d63b-e6a9-4b09-9566-7023d75f9801" />
 
