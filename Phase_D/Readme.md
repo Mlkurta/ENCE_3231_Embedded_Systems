@@ -8,7 +8,7 @@ This project is a two-wheel self-balancing robot built around an STM32 microcont
 
 The primary objective of the project is to explore the fundamentals of feedback control systems, embedded software development, and robotics. The balancing algorithm combines accelerometer and gyroscope measurements to estimate robot orientation, while a PID-based control loop continuously adjusts motor output to maintain stability.
 
-This project serves as a platform for learning embedded systems, sensor integration, control theory, PCB design, and robotic system development. Future enhancements may include wheel encoders, improved state estimation, autonomous navigation, and advanced motion control techniques.
+This project serves as a platform for learning embedded systems, sensor integration, control theory, PCB design, and robotic system development. Future enhancements may include improved state estimation, autonomous navigation, and advanced motion control techniques.
 
 ## Design Phase
 
