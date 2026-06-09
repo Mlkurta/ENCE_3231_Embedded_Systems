@@ -70,9 +70,6 @@ We would need peripherals for the following:
 
 
 
-## Prototype Phase
-
-
 ## PCB Design
 
 <img width="1205" height="804" alt="image" src="https://github.com/user-attachments/assets/9ea69e72-081f-49be-bcbd-0ee2c5b34d3d" />
