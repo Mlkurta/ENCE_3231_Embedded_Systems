@@ -176,6 +176,10 @@ This was an AS5600. Upon looking at the datasheet, 0x32 is exactly the device ad
 
 Balancing the Wheel velocities.
 
+Because the wheel speeds were notably different and required different PWM speeds to activate, this needed to be fixed:
+
+<img width="421" height="750" alt="Speed" src="https://github.com/user-attachments/assets/278da8dc-5f0d-471f-9d92-4cb8a1b05d49" />
+
 
 <img width="381" height="286" alt="image" src="https://github.com/user-attachments/assets/3240d63b-e6a9-4b09-9566-7023d75f9801" />
 
@@ -195,5 +199,5 @@ A complementary filter was used to estimate robot pitch by combining gyroscope a
 
 $\theta_k = \alpha \left(\theta_{k-1} + \omega_k \Delta t\right) + (1-\alpha)\theta_{acc,k}$
 
-An α value of 0.995 was selected, resulting in approximately 98% reliance on the integrated gyroscope measurement and 2% reliance on the accelerometer measurement during each update cycle.
+An α value of 0.995 was selected, resulting in approximately 99.5% reliance on the integrated gyroscope measurement and .5% reliance on the accelerometer measurement during each update cycle.
 
