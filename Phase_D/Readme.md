@@ -36,7 +36,39 @@ Some key features include:
 
 Pin Planning:
 
-<img width="1140" height="1103" alt="Screenshot 2026-06-07 201333" src="https://github.com/user-attachments/assets/e614a03c-0016-47da-a7bb-72df90bb5e4f" />
+<img width="590" height="550" alt="Screenshot 2026-06-07 201333" src="https://github.com/user-attachments/assets/e614a03c-0016-47da-a7bb-72df90bb5e4f" />
+
+We would need peripherals for the following:
+
+-I2C for the IMU (I2C1)
+
+-Timer 4 channels 1 and 2 for encoder-based inverted pendulum control (if we got to it)
+
+-SWDIO and SWCLK pins for programming and debugging
+
+-USB ESD pins, since we will be programming via USB as default
+
+-USART TX/RX for communication with the ESP8266 commands / telemetry (USART1)
+
+-I2C for the hall-effect encoder needed to measure wheel speed (I2C3)
+
+-A timer to generate regular interrupts for either hall-effect encoder I2C updates OR to measure PWM duty cycle using the OUT pin instead of I2C
+
+-A GPIO for the LED (to indicate running status)
+
+-Five more GPIO pins for the H-Bridge driver signals (AIN 1&2, BIN 1&2) and Standby
+
+-Two timer-driver GPIO pins to set the PWM out for the H-Bridge (Timer 2, channels 1 and 2)
+
+-A reset pin (NRST).
+
+-Two RCC pins, since we'll be atttaching a 16 MHz external clock
+
+-A Timer controlled GPIO for setting colors on the WS2812 RGB LED. This is useful for knowning if the robot received commands from the controller.
+
+-One last INT GPIO to trigger an interrupt if certain motion-related events happen
+
+
 
 ## Prototype Phase
 
